@@ -39,6 +39,13 @@ def init(argv):
 
     return app
 
+def img_thumb(self, pk):
+        item = self.datamodel.get(pk)
+        mime_type = item.image.content_type
+        return Response(
+            item.image.thumbnail.read(), mimetype=mime_type, direct_passthrough=True
+        )
+
 def search_customer():
     token = request.headers.get('Authorization')
     if not token:
